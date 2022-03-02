@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import Footer from "./Footer";
 
 export default function Container(props) {
 	const [mounted, setMounted] = useState(false);
@@ -11,7 +12,7 @@ export default function Container(props) {
 	const { children } = props;
 
 	return (
-		<div>
+		<div className="bg-gray-50 dark:bg-gray-900">
 			<button
 				aria-label="Toggle Dark Mode"
 				type="button"
@@ -44,7 +45,8 @@ export default function Container(props) {
 					</svg>
 				)}
 			</button>
-			{children}
+			<main>{children}</main>
+			<Footer />
 		</div>
 	);
 }
