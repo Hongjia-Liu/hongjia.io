@@ -14,6 +14,7 @@ const ExternalLink = ({ href, children }) => (
 const Footer = () => {
 	return (
 		<footer className="mx-auto mb-8 flex w-full max-w-2xl flex-col items-start justify-center">
+			<hr className=" border-1 mb-8  w-full border-gray-200 dark:border-gray-800" />
 			<div className="grid w-full max-w-2xl grid-cols-1 gap-4 pb-16 sm:grid-cols-3">
 				<div className="flex flex-col space-y-4">
 					<Link href="/">
@@ -36,12 +37,12 @@ const Footer = () => {
 					</ExternalLink>
 				</div>
 				<div className="flex flex-col space-y-4">
-					<Link href="/uses">
+					<Link href="/projects">
 						<a className="text-gray-500 transition hover:text-gray-600">
 							Projects
 						</a>
 					</Link>
-					<Link href="/guestbook">
+					<Link href="/about">
 						<a className="text-gray-500 transition hover:text-gray-600">
 							About
 						</a>
