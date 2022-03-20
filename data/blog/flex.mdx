@@ -1,0 +1,162 @@
+---
+title: "Essentials of Flexible Box Layout Module"
+publishedAt: "2022-03-20"
+summary: "Essentials of Flexible Box Layout Module"
+---
+
+[CSS Flexible Box Module Level 1](https://www.w3.org/TR/css-flexbox-1/) Introduces a flexible linear layout model for CSS.
+
+In the flex layout model, the children of a flex container can be laid out in any direction, and can “flex” their sizes, either growing to fill unused space or shrinking to avoid overflowing the parent. Both horizontal and vertical alignment of the children can be easily manipulated. Nesting of these boxes (horizontal inside vertical, or vertical inside horizontal) can be used to build layouts in two dimensions.
+
+---
+
+The CSS Flexible Box Layout is a layout model that provides a method to offer space distribution and powerful alignment capabilities.
+
+Before Flexbox, we aligned elements using floats and tables. Flexbox has made life much easier for people that use CSS.
+
+It's good to learn both Flexbox anf Grid. Use CSS Grid for the overall layout of the page, and then use Flexbox for the inner elements.
+
+## Flex Containers & Flex Items
+
+-   The flex container is the element that holds flex items. A container is created with `display: flex`
+-   Flex items are direct children of flex containers.
+
+Flex containers and flex items have specific CSS properties that we can use to do different things.
+
+Flex Containers Properties
+
+-   `flex-direction`
+-   `flex-wrap`
+-   `flex-flow`
+-   `justify-content`
+-   `align-items`
+-   `align-content`
+
+Flex Item Properties
+
+-   `order`
+-   `flex-grow`
+-   `flex-shrink`
+-   `flex-basis`
+-   `align-self`
+
+## The Axes
+
+![[Pasted image 20220317220605.png]]
+
+---
+
+Before flexbox, a lot of times we need to remember the quirk to clear float when we doing layout. Otherwise the height of the parent element will become `0`.
+
+```CSS
+.flex-container::after {
+ content: "";
+ clear: both;
+ display: block;
+}
+```
+
+```CSS
+.item {
+ float: left;
+}
+```
+
+---
+
+## Properties
+
+### Flex Containers
+
+#### flex-direction
+
+The `flex-direction` property specifies how flex items are placed in the flex container, by setting the direction of the flex container’s main axis. This determines the direction in which flex items are laid out.
+
+-   `flex-direction: row;`
+-   `flex-direction: row-reverse;`
+-   `flex-direction: column;`
+-   `flex-direction: column-reverse;`
+
+#### flex-wrap
+
+Flex items in a flex container are laid out and aligned within flex lines. A flex container can be either single-line or multi-line, depending on the `flex-wrap` property:
+
+-   A **single-line flex container** (i.e. one with `flex-wrap: nowrap`) lays out all of its children in a single line, even if that would cause its contents to overflow.
+-   A **multi-line flex container** (i.e. one with `flex-wrap: wrap` or `flex-wrap: wrap-reverse`) breaks its flex items across multiple lines, similar to how text is broken onto a new line when it gets too wide to fit on the existing line. When additional lines are created, they are stacked in the flex container along the cross axis according to the `flex-wrap` property. Every line contains at least one flex item, unless the flex container itself is completely empty.
+
+The `flex-wrap` property controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in.
+
+-   `flex-wrap: nowrap;` The flex container is single-line.
+-   `flex-wrap: wrap;` The flex container is multi-line.
+-   `flex-wrap: wrap-reverse;`
+
+#### flex-flow
+
+The `flex-flow` property is a shorthand for setting the `flex-direction` and `flex-wrap` properties, which together define the flex container’s main and cross axes.
+
+#### order
+
+The `order` property controls the order in which flex items appear within the flex container, by assigning them to ordinal groups. It takes a single integer value. A flex container lays out its content starting from the lowest numbered ordinal group and going up.
+
+#### justify-content (main axis alignment)
+
+The `justify-content` property aligns flex items along the main axis (determined by `flex-direction`) of the current line of the flex container.
+
+-   `justify-content: flex-start;`
+-   `justify-content: flex-end;`
+-   `justify-content: center;`
+-   `justify-content: space-between;`
+-   `justify-content: space-around;`
+
+#### align-items (cross-axis alignment)
+
+The `align-items` property aligns flex items along the cross axis (determined by `flex-direction`) of the current line of the flex container.
+
+-   `align-items: stretch;`
+-   `align-items: flex-start;`
+-   `align-items: flex-end;`
+-   `align-items: center;`
+-   `align-items: baseline;`
+
+### Flex Items
+
+#### align-self (cross-axis alignment)
+
+The `align-self` property allows the default alignment along the cross axis to be overridden for individual flex items.
+
+```CSS
+.flex-container {
+ display: flex;
+ align-items: flex-end;
+}
+
+
+.item:nth-of-type(2) {
+ align-self: center;
+}
+```
+
+-   `align-self: auto;`
+-   `align-self: flex-start;`
+-   `align-self: flex-end;`
+-   `align-self: center;`
+-   `align-self: baseline;`
+-   `align-self: stretch;`
+
+#### flex
+
+The defining aspect of flex layout is the ability to make the flex items “flex”, altering their width/height to fill the available space in the main dimension. This is done with the `flex` property. A flex container distributes free space to its items (proportional to their flex grow factor) to fill the container, or shrinks them (proportional to their flex shrink factor) to prevent overflow.
+
+A flex item is fully inflexible if both its `flex-grow` and `flex-shrink` values are zero, and flexible otherwise.
+
+The `flex` property specifies the components of a flexible length: the flex factors (`flex-grow` and `flex-shrink`) and the `flex-basis`. When a box is a flex item, `flex` is consulted instead of the main size property to determine the main size of the box. If a box is not a flex item, `flex` has no effect.
+
+-   `flex: 0 1 auto;`
+
+#### flex-grow
+
+The `flex-grow` property sets the flex grow factor, which determines how much the flex item will grow relative to the rest of the flex items in the flex container when positive free space is distributed. When omitted, it is set to `1`. Negative numbers are invalid.
+
+#### flex-shrink
+
+#### flex-basis
